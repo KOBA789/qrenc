@@ -1,4 +1,5 @@
 import { Table, EcLevel, Version } from "./types";
+import { chunks } from "./util";
 
 export function createErrorCorrectionCode(
   data: Uint8Array,
@@ -39,15 +40,6 @@ export function interleave(blocks: Uint8Array[]): Uint8Array {
     }
   }
   return res;
-}
-
-export function* chunks(
-  orig: Uint8Array,
-  chunkSize: number
-): IterableIterator<Uint8Array> {
-  for (let i = 0; i < orig.length; i += chunkSize) {
-    yield orig.subarray(i, Math.min(i + chunkSize, orig.length));
-  }
 }
 
 export function constructCodewords(

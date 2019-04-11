@@ -1,12 +1,21 @@
 export type QrErrorKind =
-  | "data_too_long"
-  | "invalid_version"
-  | "unsupported_character_set"
-  | "invalid_character";
+| "DataTooLong"
+| "InvalidVersion"
+| "UnsupportedCharacterSet"
+| "InvalidEciDesignator"
+| "InvalidCharacter";
 
-export class QrError {
-  constructor(readonly kind: QrErrorKind) {}
+export class QrErrors<K extends QrErrorKind> {
+  private constructor(readonly kind: K) {}
+
+  static DataTooLong = new QrErrors("DataTooLong");
+  static InvalidVersion = new QrErrors("InvalidVersion");
+  static UnsupportedCharacterSet = new QrErrors("UnsupportedCharacterSet");
+  static InvalidEciDesignator = new QrErrors("InvalidEciDesignator");
+  static InvalidCharacter = new QrErrors("InvalidCharacter");
 }
+export type QrError = QrErrors<QrErrorKind>;
+const _QrErrorTypeCheck: { [K in QrErrorKind]: QrErrors<K> } = QrErrors;
 
 export type EcLevel = "L" | "M" | "Q" | "H";
 export const EcLevel = {

@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { createErrorCorrectionCode, interleave, chunks, constructCodewords, maxAllowedErrors } from "./ec";
+import { createErrorCorrectionCode, interleave, constructCodewords, maxAllowedErrors } from "./ec";
 import { Version, EcLevel, NormalVersion } from "./types";
 
 (function testPolyMod() {
@@ -67,18 +67,6 @@ import { Version, EcLevel, NormalVersion } from "./types";
   ]);
   assert.deepStrictEqual(actual, expected);
 })();
-
-(function testChunks() {
-  const actual = [...chunks(new Uint8Array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]), 3)];
-  const expected = [
-    new Uint8Array([1, 2, 3]),
-    new Uint8Array([4, 5, 6]),
-    new Uint8Array([7, 8, 9]),
-    new Uint8Array([10]),
-  ];
-  assert.deepStrictEqual(actual, expected);
-})();
-
 
 (function testConstructCodewords() {
   type TestCase = [[number[], Version, EcLevel], number[], number[]];
