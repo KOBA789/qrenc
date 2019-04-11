@@ -70,7 +70,37 @@ export function* parse(data: Uint8Array): IterableIterator<Segment> {
   }
 }
 
-export class Optimize {}
+export function *optimize(iter: IterableIterator<Segment>, version: Version): IterableIterator<Segment> {
+  const first = iter.next();
+  if (first.done) {
+    return;
+  }
+  let lastSeg: Segment = first.value;
+  let lastSegSize = lastSeg.encodedLen(version);
+  for (const seg of iter) {
+    const segSize = seg.encodedLen(version);
+    const newSeg = new Segment(Mode.max(lastSeg.mode, seg.mode), lastSeg.begin, seg.end);
+    const newSize = newSeg.encodedLen(version);
+
+    if (lastSegSize + segSize >= newSize) {
+      lastSeg = newSeg;
+      lastSegSize = newSize;
+    } else {
+      yield lastSeg;
+      lastSeg = seg;
+      lastSegSize = segSize;
+    }
+  }
+  yield lastSeg;
+}
+
+export function totalEncodedLen(segs: Iterable<Segment>, version: Version): number {
+  let sum = 0;
+  for (const seg of segs) {
+    sum += seg.encodedLen(version);
+  }
+  return sum;
+}
 
 const ExclCharSet = {
   End: 0,
