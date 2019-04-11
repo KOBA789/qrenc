@@ -69,7 +69,19 @@ export class NormalVersion implements IVersion {
 }
 export type Version = NormalVersion;
 
-export type Mode = "numeric" | "alphanumeric" | "byte" | "kanji";
+export type ModeKind = keyof typeof Modes;
+export type Mode = typeof Modes[ModeKind];
+export const Modes: {
+  Numeric: "numeric",
+  Alphanumeric: "alphanumeric",
+  Byte: "byte",
+  Kanji: "kanji",
+} = {
+  Numeric: "numeric",
+  Alphanumeric: "alphanumeric",
+  Byte: "byte",
+  Kanji: "kanji",
+};
 
 type BitsMap = { [key in Mode]: number };
 const LENGTH_BITS_MAP_9: BitsMap = {

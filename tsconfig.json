@@ -10,7 +10,6 @@
     "outDir": "js"
   },
   "include": [
-    "ec.ts",
-    "ec_test.ts"
+    "**/*.ts"
   ]
 }
