@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "module": "commonjs",
+    "noImplicitAny": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "sourceMap": true,
+    "target": "es2017",
+    "outDir": "js"
+  },
+  "include": [
+    "ec.ts",
+    "ec_test.ts"
+  ]
+}
