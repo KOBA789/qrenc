@@ -44,3 +44,14 @@ export default class QrCode {
     return this.content.toColors();
   }
 }
+
+import * as types from "./types";
+import * as ec from "./ec";
+import * as bits from "./bits";
+import * as canvas from "./canvas";
+export {
+  types,
+  ec,
+  bits,
+  canvas,
+};
