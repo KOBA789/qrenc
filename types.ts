@@ -169,3 +169,22 @@ export const Mode = {
     return null;
   }
 };
+
+export const Colors: {
+  Light: 0b0,
+  Dark:  0b1,
+} = {
+  Light: 0b0,
+  Dark:  0b1,
+};
+export type ColorKind = keyof typeof Colors;
+export type Color = typeof Colors[ColorKind];
+
+const Color = {
+  isDark(color: Color): boolean {
+    return (color & 0b1) !== 0;
+  },
+  isLight(color: Color): boolean {
+    return !this.isDark(color);
+  },
+};

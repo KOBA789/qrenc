@@ -6,3 +6,9 @@ export function* chunks(
     yield orig.subarray(i, Math.min(i + chunkSize, orig.length));
   }
 }
+
+export function *rangeE(start: number, endEx: number): IterableIterator<number> {
+  for (let i = start; i < endEx; ++ i) {
+    yield i;
+  }
+}
