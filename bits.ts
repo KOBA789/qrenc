@@ -287,6 +287,11 @@ export class Bits {
     }
     return null;
   }
+
+  pushOptimalData(data: Uint8Array): null | QrError {
+    const segs = optimize(parse(data), this.version);
+    return this.pushSegments(data, segs);
+  }
 }
 
 const AUTO_VERSIONS = [NormalVersion.tryFrom(9)!, NormalVersion.tryFrom(26)!, NormalVersion.tryFrom(40)!];
