@@ -54,7 +54,7 @@ export function constructCodewords(
   const block1End = block1Size * block1Count;
   const blocks = [
     ...chunks(rawBits.subarray(0, block1End), block1Size),
-    ...chunks(rawBits.subarray(block1End), block2Size)
+    ...(block2Size > 0 ? chunks(rawBits.subarray(block1End), block2Size) : []),
   ];
   const ecCodeSize = version.fetch(ecLevel, EC_BYTES_PER_BLOCK);
   const ecCodes = blocks.map((block) => createErrorCorrectionCode(block, ecCodeSize));
