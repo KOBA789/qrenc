@@ -189,7 +189,7 @@ export class Bits {
   // Byte mode
 
   pushByteData(data: Uint8Array): null | QrError {
-    const err = this.pushHeader(Modes.Alphanumeric, data.length);
+    const err = this.pushHeader(Modes.Byte, data.length);
     if (err !== null) {
       return err;
     }
@@ -202,7 +202,7 @@ export class Bits {
   // Kanji mode
 
   pushKanjiData(data: Uint8Array): null | QrError {
-    const err = this.pushHeader(Modes.Alphanumeric, data.length);
+    const err = this.pushHeader(Modes.Kanji, data.length);
     if (err !== null) {
       return err;
     }
@@ -250,7 +250,7 @@ export class Bits {
       const dataBytesLength = Math.floor(dataLength / 8);
       const paddingBytesCount = dataBytesLength - this.byteLength;
       const paddingBytesCountEven = paddingBytesCount - (paddingBytesCount & 1);
-      for (let i = 0; i < paddingBytesCountEven; i ++) {
+      for (let i = 0; i < paddingBytesCountEven / 2; i ++) {
         this.pushByte(PADDING_BYTES[0]);
         this.pushByte(PADDING_BYTES[1]);
       }
