@@ -4,6 +4,14 @@ import { constructCodewords, maxAllowedErrors } from "./ec";
 import { Canvas } from "./canvas";
 
 export default class QrCode {
+  static withErrorCorrectionLevel(data: Uint8Array, ecLevel: EcLevel): QrCode | QrError {
+    const bitsOrError = bits.encodeAuto(data, ecLevel);
+    if (bitsOrError instanceof Bits) {
+      return this.withBits(bitsOrError, ecLevel);
+    }
+    return bitsOrError;
+  }
+
   static withVersion(data: Uint8Array, version: Version, ecLevel: EcLevel): QrCode | QrError {
     const bits = new Bits(version);
     let err;
