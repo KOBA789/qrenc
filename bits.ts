@@ -50,7 +50,8 @@ export class Bits {
       if (0 <= b && b <= 8) {
         this.pushByte((bits << (8 - b)) & 0xff);
       } else {
-        this.pushByte((bits << (8 - b)) & 0xff);
+        this.pushByte((bits >> (b - 8)) & 0xff);
+        this.pushByte((bits << (16 - b)) & 0xff);
       }
     } else if (0 <= b && b <= 8) {
       this.data[lastIndex] |= (bits << (8 - b)) & 0xff;
@@ -154,7 +155,7 @@ export class Bits {
   }
 
   pushNumericData(data: Uint8Array): null | QrError {
-    const err = this.pushHeader(Modes.Alphanumeric, data.length);
+    const err = this.pushHeader(Modes.Numeric, data.length);
     if (err !== null) {
       return err;
     }
